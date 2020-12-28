@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20,
-        backgroundColor: 'pink',
+        backgroundColor: 'white',
       },
       paragraph: {
         fontSize: 18,

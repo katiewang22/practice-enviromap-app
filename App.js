@@ -4,8 +4,15 @@ import * as Location from 'expo-location';
 import { styles } from './AppStyles.js';
  
 export default function App() {
+  /*
+  1. Get current location
+  2. Set location's latitude and longitude as variables
+  3. Intial view = location's lat and long*/
+
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [userLatitude, setUserLatitude] = useState(null);
+  const [userLongitude, setUserLongitude] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -16,21 +23,31 @@ export default function App() {
       }
 
       let location = await Location.getCurrentPositionAsync({});
-      setLocation(location); //coords stored as var location
+      setLocation(location);
+      let userLatitude = location.coords.latitude;
+      let userLongitude = location.coords.longitude;
+      setUserLatitude(userLatitude);
+      setUserLongitude(userLongitude);
     })();
   }, []);
 
-  //Testing purposes
-  let text = 'Waiting..';
+  let text1 = 'Waiting...';
   if (errorMsg) {
-    text = errorMsg;
+    text1 = errorMsg;
   } else if (location) {
-    text = JSON.stringify(location);
+    text1 = JSON.stringify(userLatitude);
+  }
+
+  let text2 = 'Waiting..';
+  if (errorMsg) {
+    text2 = errorMsg;
+  } else if (location) {
+    text2 = JSON.stringify(userLongitude);
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.paragraph}>Welcome to EnviroMap! Your coords are: {text}</Text>
+      <Text style={styles.paragraph}>Welcome to EnviroMap! Your latitude is: {text1}. Your longitude is: {text2}.</Text>
     </View>
   );
 }
